@@ -1,14 +1,16 @@
 <h1>Steps to run this basic yii repository</h2>
-<ol>
+<ul>
     <li>You need to run this command every time you want to start a server.<br>
             If this is your fresh/first install run this commands twice, there is some issue with it, which i have not yet figured out
          <ul>
             <li><code>docker-compose up --build</code></li>
+            <li>If you run into errors then its more likely because of busy ports or container names, you can change them in <code>docker-compose.yml</code> file in the main project directory, and run this command again</li>
+            <li>Check <a href="https://github.com/syednaeem15191/docker-setup.git">this</a> repository to see which fields you should change to resolve errors</li>
          </ul>
      </li>
     <li>you only need to run this command one time fresh/first install
          <ul>
-            <li><code>docker-compose exec php7 php ../project/yii migrate</code></li>
+            <li><code>docker-compose exec php7 php ../project/yii migrate/fresh</code></li>
          </ul>
     </li>
     <li>web server
@@ -21,13 +23,13 @@
             <li><code>http://localhost:8082/</code></li>
          </ul>
     </li>
-</ol>
+</ul>
 or if you want to use Yii's CLI below are the steps
-<ol>
+<ul>
     <li><code>docker-compose exec php7 sh</code> </li>
     <li><code>cd ../project</code> </li>
-    <li>now here you can use Yii cli commands like <code>php yii migrate/create table_name</code> </li>
-</ol>
+    <li>now here you can use Yii cli commands like <code>php yii migrate/create table_name</code> & <code>php yii cache/flush-all</code> etc.</li>
+</ul>
 <hr>
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">

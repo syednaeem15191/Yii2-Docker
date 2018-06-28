@@ -17,19 +17,19 @@ class m180626_093504_create_users_table extends Migration
             'name' => $this->string()->notNull(),
             'username' => $this->string()->notNull()->unique(),
             'password' => $this->string()->notNull(),
-            'role_id' => $this->integer()
+            'type_id' => $this->integer()
         ]);
 
         $this->addForeignKey(
             'fk_users_user_role_id',
             'users',
-            'role_id',
-            'user_roles',
+            'type_id',
+            'user_types',
             'id',
             'CASCADE'
         );
 
-        $this->insert('users', ['name' => 'Syed', 'username' => 'admin', 'password' => 'admin', 'role_id' => 1]);
+        $this->insert('users', ['name' => 'Syed', 'username' => 'admin', 'password' => 'admin', 'type_id' => 1]);
     }
 
     /**
