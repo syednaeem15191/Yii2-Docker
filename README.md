@@ -1,3 +1,34 @@
+<h1>Steps to run this basic yii repository</h2>
+<ol>
+    <li>You need to run this command every time you want to start a server.<br>
+            If this is your fresh/first install run this commands twice, there is some issue with it, which i have not yet figured out
+         <ul>
+            <li><code>docker-compose up --build</code></li>
+         </ul>
+     </li>
+    <li>you only need to run this command one time fresh/first install
+         <ul>
+            <li><code>docker-compose exec php7 php ../project/yii migrate</code></li>
+         </ul>
+    </li>
+    <li>web server
+         <ul>
+            <li><code>http://localhost:82/</code></li>
+         </ul>
+    </li>
+    <li>php my admin
+         <ul>
+            <li><code>http://localhost:8082/</code></li>
+         </ul>
+    </li>
+</ol>
+or if you want to use Yii's CLI below are the steps
+<ol>
+    <li><code>docker-compose exec php7 sh</code> </li>
+    <li><code>cd ../project</code> </li>
+    <li>now here you can use Yii cli commands like <code>php yii migrate/create table_name</code> </li>
+</ol>
+<hr>
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
