@@ -12,15 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?//= $form->field($model, 'id')->textInput() ?>
+    <? //= $form->field($model, 'id')->textInput() ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => false]) ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?//= $form->field($model, 'role_id')->textInput() ?>
+    <?= $form->field($model, 'confirm_password')->passwordInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'type_id')->dropDownList($options, ['prompt' => 'Select user type']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

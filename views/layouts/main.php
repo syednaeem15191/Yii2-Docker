@@ -44,6 +44,10 @@ AppAsset::register($this);
         ['label' => 'Gii', 'url' => ['/gii']]
     ];
 
+//    if (Yii::$app->user->identity->isAdmin())
+        array_push($items,
+            ['label' => 'Users', 'url' => ['/user/index']]
+        );
     if (Yii::$app->user->isGuest)
         array_push($items,
             ['label' => 'Login', 'url' => ['/site/login']],
@@ -54,7 +58,7 @@ AppAsset::register($this);
             '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Logout (' . Yii::$app->user->identity->name . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

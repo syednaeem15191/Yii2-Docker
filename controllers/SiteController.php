@@ -127,7 +127,7 @@ class SiteController extends BasicController
 
         $model = new User();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->role_id = 2;
+            $model->type_id = 2;
             $model->save();
             $this->setFlash("Your account has been created, Now you can log in.");
             return $this->goBack();

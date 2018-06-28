@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\UserType;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,7 +31,7 @@ class UserController extends BasicController
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
+                ]
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -78,13 +80,16 @@ class UserController extends BasicController
         $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && !User::findByUsername(Yii::$app->request->post()->username)) {
-            $model->role_id = 2;
             if ($model->save())
                 return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $options = [];
+        foreach (UserType::find()->all() as $value)
+            $options[$value->id] = $value->name;
+
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model, 'options' => $options
         ]);
     }
 
@@ -103,8 +108,12 @@ class UserController extends BasicController
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $options = [];
+        foreach (UserType::find()->all() as $value)
+            $options[$value->id] = $value->name;
+
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model, 'options' => $options
         ]);
     }
 

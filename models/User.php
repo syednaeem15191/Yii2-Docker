@@ -39,23 +39,22 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['name', 'username', 'password', 'confirm_password'], 'required'],
+            [['name'], 'string', 'min' => 5, 'max' => 25],
+            [['username'], 'string', 'max' => 25],
             ['username', 'checkUserName'],
-            ['password', 'string', 'min' => 5],
+            [['username', 'password'], 'string', 'min' => 5],
             ['confirm_password', 'compare', 'compareAttribute' => 'password', 'message' => 'The password does not match.'],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserType::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['type_id'], 'default', 'value' => 2],
         ];
     }
 
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return '{{users}}';
-    }
-
-    public function checkUserName($attribute, $params)
-    {
-        if (!$this->hasErrors())
-            if (User::findByUsername($this->username) != null)
-                $this->addError($attribute, 'Username "' . $this->username . '" is already taken.');
-
     }
 
     /**
@@ -88,7 +87,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-//        var_dump(json_encode(User::find()->all(), JSON_PRETTY_PRINT));
 //        foreach (self::$users as $user) {
         foreach (User::find()->all() as $user) {
             if (strcasecmp($user->username, $username) === 0) {
@@ -131,5 +129,55 @@ class User extends ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    /**
+     * @param $attribute
+     * @param $params
+     */
+    public function checkUserName($attribute, $params)
+    {
+        if (!$this->hasErrors())
+            if (User::findByUsername($this->username) != null)
+                $this->addError($attribute, 'Username "' . $this->username . '" is already taken.');
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->type->id == 1;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'username' => 'Username',
+            'password' => 'Password',
+            'type_id' => 'Type ID',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPosts()
+    {
+        return $this->hasMany(Post::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType()
+    {
+        return $this->hasOne(UserType::className(), ['id' => 'type_id']);
     }
 }
