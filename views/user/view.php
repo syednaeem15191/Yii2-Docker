@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'username',
-            'password',
-            'type_id',
+            ['attribute' => 'type_id', 'value' => ($model->type->name)],
+            ['attribute' => 'Posts', 'value' => Html::a($model->posts->count, ['post/index', 'id' => $model->id])],
         ],
     ]) ?>
 

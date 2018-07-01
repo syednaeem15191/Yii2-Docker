@@ -18,7 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'type_id'], 'integer'],
+            [['id'], 'integer'],
+            [['type_id'], 'string'],
             [['name', 'username', 'password'], 'safe'],
         ];
     }
@@ -41,7 +42,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = User::find()->joinWith('type');
 
         // add conditions that should always apply here
 
@@ -58,14 +59,15 @@ class UserSearch extends User
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'type_id' => $this->type_id,
-        ]);
+//        $query->andFilterWhere([
+//            'id' => $this->id,
+//            'type_id' => $this->type_id,
+//        ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'users.id', $this->id])
+            ->andFilterWhere(['like', 'users.name', $this->name])
             ->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password]);
+            ->andFilterWhere(['like', 'user_types.name', $this->type_id]);
 
         return $dataProvider;
     }

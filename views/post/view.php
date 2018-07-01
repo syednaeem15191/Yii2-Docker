@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description',
-            //'category_id',
-            //'user_id',
             ['attribute' => 'category_id', 'value' => Html::a($model->category->name, ['category/view', 'id' => $model->category->id])],
             ['attribute' => 'user_id', 'value' => Html::a($model->user->name, ['user/view', 'id' => $model->user->id])],
             'created_at',

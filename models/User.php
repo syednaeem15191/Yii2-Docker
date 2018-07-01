@@ -164,7 +164,7 @@ class User extends ActiveRecord implements IdentityInterface
             'name' => 'Name',
             'username' => 'Username',
             'password' => 'Password',
-            'type_id' => 'Type ID',
+            'type_id' => 'Type',
         ];
     }
 
