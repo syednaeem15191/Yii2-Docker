@@ -34,10 +34,11 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'category_id', 'user_id', 'created_at', 'updated_at'], 'required'],
+            [['title', 'description', 'category_id'], 'required'],
             [['category_id', 'user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['title', 'description'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 25, 'min' => 5],
+            [['description'], 'string', 'max' => 255, 'min' => 25],
             [['title'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -53,8 +54,8 @@ class Post extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'description' => 'Description',
-            'category_id' => 'Category ID',
-            'user_id' => 'User ID',
+            'category_id' => 'Category',
+            'user_id' => 'Arthur',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
