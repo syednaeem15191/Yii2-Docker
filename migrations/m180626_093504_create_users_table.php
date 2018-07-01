@@ -30,6 +30,7 @@ class m180626_093504_create_users_table extends Migration
         );
 
         $this->insert('users', ['name' => 'Syed', 'username' => 'admin', 'password' => 'admin', 'type_id' => 1]);
+        $this->insert('users', ['name' => 'User', 'username' => 'user', 'password' => 'user', 'type_id' => 2]);
     }
 
     /**

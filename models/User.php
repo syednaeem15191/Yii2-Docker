@@ -41,7 +41,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['name', 'username', 'password', 'confirm_password'], 'required'],
             [['name'], 'string', 'min' => 5, 'max' => 25],
             [['username'], 'string', 'max' => 25],
-            ['username', 'checkUserName'],
+            ['username', 'checkUserName'], //unique
             [['username', 'password'], 'string', 'min' => 5],
             ['confirm_password', 'compare', 'compareAttribute' => 'password', 'message' => 'The password does not match.'],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserType::className(), 'targetAttribute' => ['type_id' => 'id']],
@@ -146,9 +146,12 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return bool
      */
-    public function isAdmin()
+    public static function isAdmin($username)
     {
-        return $this->type->id == 1;
+        if (static::findOne(['username' => $username, 'type_id' => UserType::findOne(['name' => 'Super Admin'])->id]))
+            return true;
+        else
+            return false;
     }
 
     /**

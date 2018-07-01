@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends BasicController
+class UserController extends BaseController
 {
     /**
      * {@inheritdoc}
@@ -23,13 +23,25 @@ class UserController extends BasicController
     public function behaviors()
     {
         return [
+//            ['allow',
+//                'action' => ['index', 'view', 'create', 'update', 'delete'],
+//                'users' => ['admin']
+//            ],
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index', 'view', 'create', 'update', 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin(Yii::$app->user->identity->username);
+                        }
+                    ], [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['@']
                     ],
                 ]
             ],

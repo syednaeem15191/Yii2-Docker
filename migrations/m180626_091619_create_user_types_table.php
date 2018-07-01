@@ -14,7 +14,7 @@ class m180626_091619_create_user_types_table extends Migration
     {
         $this->createTable('user_types', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(),
+            'name' => $this->string()->notNull()->unique(),
         ]);
 
         $this->insert('user_types', ['name' => 'Super Admin']);

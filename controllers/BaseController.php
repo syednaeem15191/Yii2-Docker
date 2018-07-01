@@ -9,10 +9,11 @@
 namespace app\controllers;
 
 
+use app\models\User;
 use Yii;
 use yii\web\Controller;
 
-class BasicController extends Controller
+class BaseController extends Controller
 {
     protected function setFlash($message, $type = 'success')
     {

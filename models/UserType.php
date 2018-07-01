@@ -28,7 +28,9 @@ class UserType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 255],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 25],
+            [['name'], 'unique'],
         ];
     }
 
@@ -48,6 +50,6 @@ class UserType extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['type_id' => 'id']);
+        return $this->hasMany(Users::className(), ['type_id' => 'id']);
     }
 }
