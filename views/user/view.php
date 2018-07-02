@@ -40,4 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
         echo $ex->getMessage();
     } ?>
 
+    <div class="row">
+        <? foreach ($model->posts as $post) { ?>
+            <?= $this->render('@app/views/layouts/post-list', ['post' => $post]); ?>
+        <? } ?>
+    </div>
+
 </div>
