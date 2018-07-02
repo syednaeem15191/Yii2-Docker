@@ -25,17 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'description',
-            ['attribute' => 'category_id', 'value' => Html::a($model->category->name, ['category/view', 'id' => $model->category->id])],
-            ['attribute' => 'user_id', 'format' => 'html', 'value' => \app\models\BaseModel::get_html_anchor($model->user->name, 'user/view', $model->user->id)],
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
+    <? try {
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'title',
+                'description',
+                ['attribute' => 'category_id', 'format' => 'html', 'value' => \app\models\BaseModel::get_html_anchor($model->category->name, 'category/view', $model->category->id)],
+                ['attribute' => 'user_id', 'format' => 'html', 'value' => \app\models\BaseModel::get_html_anchor($model->user->name, 'user/view', $model->user->id)],
+                'created_at',
+                'updated_at',
+            ],
+        ]);
+    } catch (Exception $ex) {
+        echo $ex->getMessage();
+    } ?>
 
 </div>

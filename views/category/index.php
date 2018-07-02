@@ -4,34 +4,27 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="category-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <? //= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <? try {
         echo GridView::widget([
             'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
 //            'id',
-                ['attribute' => 'name', 'content' => function ($model) {
-                    return \app\models\BaseModel::get_html_anchor($model->name, 'user/view', $model->id);
-                }],
-                'username',
-                ['attribute' => 'type_id', 'value' => 'type.name'],
+                'name',
 
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => 'Action',

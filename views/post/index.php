@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }],
                 // ['attribute' => 'category_id', 'value' => 'category.name'],
                 ['attribute' => 'category_id', 'content' => function ($model) {
-                    return \app\models\BaseModel::get_html_anchor($model->category->name, 'post/index', $model->user->id);
+                    return \app\models\BaseModel::get_html_anchor($model->category->name, 'category/view', $model->category->id);
                 }],
                 ['attribute' => 'user_id', 'content' => function ($model) {
                     return \app\models\BaseModel::get_html_anchor($model->user->name, 'user/view', $model->user->id);
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Action',
                     'headerOptions' => ['class' => 'action-column text-center'],
                     'contentOptions' => ['class' => 'text-center']]
-            ],
+            ]
         ]);
     } catch (Exception $ex) {
         echo $ex->getMessage();

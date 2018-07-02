@@ -6,10 +6,12 @@
  * Time: 1:10 PM
  */ ?>
 <div class="col-lg-4">
-    <h2><?= \yii\helpers\Html::a($post->title, ['post/view', 'id' => $post->id]) ?></h2>
+    <h2><?= \app\models\BaseModel::get_html_anchor($post->title, 'post/view', $post->id) ?></h2>
 
     <p><?= \app\models\BaseModel::str_limit($post->description) ?></p>
 
-    <p><a class="btn btn-default" href="#"><?= $post->category->name ?></a>
+    <p>
+        <?= \app\models\BaseModel::get_html_anchor_bootstrap($post->category->name, 'category/view', $post->category->id, 'btn btn-default') ?>
+        <?= \app\models\BaseModel::get_html_anchor_bootstrap($post->user->name, 'user/view', $post->user->id, 'btn btn-default') ?>
     </p>
 </div>

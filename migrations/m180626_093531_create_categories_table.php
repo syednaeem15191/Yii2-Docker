@@ -17,7 +17,8 @@ class m180626_093531_create_categories_table extends Migration
             'name' => $this->string()->notNull()->unique()
         ]);
 
-        $this->insert('categories', ['name' => 'Default']);
+        $this->insert('categories', ['name' => 'Cat 1']);
+        $this->insert('categories', ['name' => 'Cat 2']);
     }
 
     /**
