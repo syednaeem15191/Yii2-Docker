@@ -19,19 +19,32 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <? try {
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'title',
-            'description',
-            ['attribute' => 'category_id', 'value' => 'category.name'],
-            ['attribute' => 'user_id', 'value' => 'user.name'],
+                'title',
+                ['attribute' => 'description', 'content' => function ($model) {
+                    return \app\models\BaseModel::str_limit($model->description, 100);
+                }],
+                // ['attribute' => 'category_id', 'value' => 'category.name'],
+                ['attribute' => 'category_id', 'content' => function ($model) {
+                    return \app\models\BaseModel::get_html_anchor($model->category->name, 'post/index', $model->user->id);
+                }],
+                ['attribute' => 'user_id', 'content' => function ($model) {
+                    return \app\models\BaseModel::get_html_anchor($model->user->name, 'user/view', $model->user->id);
+                }],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]);
-    ?>
+                ['class' => 'yii\grid\ActionColumn',
+                    'header' => 'Action',
+                    'headerOptions' => ['class' => 'action-column text-center'],
+                    'contentOptions' => ['class' => 'text-center']]
+            ],
+        ]);
+    } catch (Exception $ex) {
+        echo $ex->getMessage();
+    } ?>
 </div>

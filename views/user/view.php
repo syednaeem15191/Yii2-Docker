@@ -25,15 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'username',
-            ['attribute' => 'type_id', 'value' => ($model->type->name)],
-            ['attribute' => 'Posts', 'value' => Html::a($model->posts->count, ['post/index', 'id' => $model->id])],
-        ],
-    ]) ?>
+    <? try {
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'name',
+                'username',
+                ['attribute' => 'type_id', 'value' => ($model->type->name)],
+                ['attribute' => 'posts', 'format' => 'html', 'value' => \app\models\BaseModel::get_html_anchor($model->name, 'post/index', $model->id)]
+            ],
+        ]);
+    } catch (Exception $ex) {
+        echo $ex->getMessage();
+    } ?>
 
 </div>

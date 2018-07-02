@@ -10,6 +10,7 @@ namespace app\models;
 
 
 use yii\base\Model;
+use yii\helpers\Html;
 
 class BaseModel extends Model
 {
@@ -18,5 +19,10 @@ class BaseModel extends Model
         if (strlen($string) > $limit)
             return substr($string, 0, $limit) . $end;
         return $string;
+    }
+
+    public static function get_html_anchor($text = 'Link', $href = '#', $id = '')
+    {
+        return ( $id != '' ? Html::a($text, [$href, 'id' => $id]) : Html::a($text, $href));
     }
 }
