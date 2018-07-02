@@ -89,6 +89,7 @@ class PostController extends BaseController
             $model->updated_at = date('Y-m-d H:i:s');
             if ($model->save()) {
                 $this->setFlash('Post has been created successfully');
+                $this->sendMailPostCreate($model->user->email);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -117,6 +118,7 @@ class PostController extends BaseController
             $model->updated_at = date('Y-m-d H:i:s');
             if ($model->save()) {
                 $this->setFlash('Post has been updated successfully');
+                $this->sendMailPostUpdate($model->user->email);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -141,8 +143,9 @@ class PostController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $email = $this->findModel($id)->user->email;
+        if ($this->findModel($id)->delete())
+            $this->sendMailPostDelete($email);
         return $this->redirect(['index']);
     }
 
