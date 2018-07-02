@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'id',
                 'name',
+                'email',
                 'username',
                 ['attribute' => 'type_id', 'value' => ($model->type->name)],
                 // ['attribute' => 'posts', 'format' => 'html', 'value' => \app\models\BaseModel::get_html_anchor($model->name, 'post/index', $model->id)]

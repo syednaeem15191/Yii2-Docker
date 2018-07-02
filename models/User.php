@@ -38,10 +38,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'username', 'password', 'confirm_password'], 'required'],
+            [['name', 'username', 'email', 'password', 'confirm_password'], 'required'],
             [['name'], 'string', 'min' => 5, 'max' => 25],
             [['username'], 'string', 'max' => 25],
-            ['username', 'checkUserName'], //unique
+            ['username', 'checkUserName'],
+            [['email'], 'unique'],
             [['username', 'password'], 'string', 'min' => 5],
             ['confirm_password', 'compare', 'compareAttribute' => 'password', 'message' => 'The password does not match.'],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserType::className(), 'targetAttribute' => ['type_id' => 'id']],
@@ -162,6 +163,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'email' => 'Email Address',
             'username' => 'Username',
             'password' => 'Password',
             'type_id' => 'Type',

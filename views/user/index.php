@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'name', 'content' => function ($model) {
                     return \app\models\BaseModel::get_html_anchor($model->name, 'user/view', $model->id);
                 }],
+                'email',
                 'username',
                 ['attribute' => 'type_id', 'value' => 'type.name'],
 

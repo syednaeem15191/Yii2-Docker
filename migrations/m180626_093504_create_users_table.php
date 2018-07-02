@@ -15,6 +15,7 @@ class m180626_093504_create_users_table extends Migration
         $this->createTable('users', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
+            'email' => $this->string()->notNull()->unique(),
             'username' => $this->string()->notNull()->unique(),
             'password' => $this->string()->notNull(),
             'type_id' => $this->integer()
@@ -29,8 +30,8 @@ class m180626_093504_create_users_table extends Migration
             'CASCADE'
         );
 
-        $this->insert('users', ['name' => 'Syed', 'username' => 'admin', 'password' => 'admin', 'type_id' => 1]);
-        $this->insert('users', ['name' => 'User', 'username' => 'user', 'password' => 'user', 'type_id' => 2]);
+        $this->insert('users', ['name' => 'Syed', 'email' => 'syed.naeem@rhinos-me.com', 'username' => 'admin', 'password' => 'admin', 'type_id' => 1]);
+        $this->insert('users', ['name' => 'User', 'email' => 'user@gmail.com', 'username' => 'user', 'password' => 'user', 'type_id' => 2]);
     }
 
     /**
